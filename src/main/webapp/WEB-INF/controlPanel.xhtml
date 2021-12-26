@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="#{localBean.idioma}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<f:view locale="#{localBean.locale}">
+   <h:head>
+      <link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/favicon.ico" />
+      <f:loadBundle var="lenguaje" basename="text/lenguaje" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <title>#{lenguaje['pagina.panel-control']} | #{lenguaje.empresa}</title>
+      <!--link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /-->
+      <link rel="stylesheet" type="text/css"
+            href="#{facesContext.externalContext.requestContextPath}/resources/css/style-icc.css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" />
+   </h:head>
+   <h:body styleClass="sb-nav-fixed">
+      <h:form id="form" a:novalidate="false" enctype="multipart/form-data">
+         <!--======= Mensajes Toast =======-->
+         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-msg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+               <h:panelGroup id="panel-toast" layout="block">
+                  <div class="toast-header #{mensajeController.getColorMensaje()} text-light">
+                     <i class="me-2 bi #{mensajeController.getIconoMensaje()}" />
+                     <strong class="me-auto">#{mensajeController.getTitulo()}</strong>
+                     <small>Justo Ahora</small>
+                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" />
+                  </div>
+                  <div id="pc-toast-body" class="toast-body">
+                     #{mensajeController.getDetalle()}
+                  </div>
+               </h:panelGroup>
+            </div>
+         </div>
+         <!--======================== Menu ========================-->
+         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="#{facesContext.externalContext.requestContextPath}/panel/">
+               <img src="#{facesContext.externalContext.requestContextPath}/resources/images/logo_icc_light.png"
+                    alt="logo-icc" width="200" />
+            </a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 tooltip-container"
+                    id="sidebarToggle" href="#!">
+               <span class="tooltiptext-bottom">#{lenguaje['pagina.panel-control.accion-pi']}</span>
+               <i class="navbar-toggler-icon" />
+            </button>
+            <!-- Navbar Search-->
+            <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 w-25">
+               <div class="input-group">
+                  <input class="form-control" type="text" placeholder="#{lenguaje['g.buscar']}..."
+                         aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                  <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+                     <i class="bi bi-search" />
+                  </button>
+               </div>
+            </div>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                     data-bs-toggle="dropdown" aria-expanded="false">
+                     <i class="bi bi-person-fill" />
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                     <li><a class="dropdown-item" href="#!">Settings</a></li>
+                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                     <li><hr class="dropdown-divider" /></li>
+                     <li><a class="dropdown-item" href="#!">#{lenguaje['login.logout']}</a></li>
+                  </ul>
+               </li>
+            </ul>
+            <!-- Inter-->
+            <h:panelGroup layout="block">
+               <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                     #{localBean.idioma}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                     <li>
+                        <button jsf:id="id-es" class="btn btn-primary dropdown-item active" type="button">
+                           Español
+                           <f:setPropertyActionListener target="#{localBean.idioma}" value="es_EC"/>
+                           <f:ajax execute="@this" render="@this @form" event="click" />
+                        </button>
+                     </li>
+                     <li>
+                        <button jsf:id="id-en" class="btn btn-primary dropdown-item" type="button">
+                           Ingles
+                           <f:setPropertyActionListener target="#{localBean.idioma}" value="en"/>
+                           <f:ajax execute="@this" render="@this @form" event="click" />
+                        </button>
+                     </li>
+                  </ul>
+               </div>
+            </h:panelGroup>
+         </nav>
+         <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+               <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                  <div class="sb-sidenav-menu">
+                     <!--======================== Panel Izquierdo ========================-->
+                     <div class="nav">
+                        <!--===== Seccion Admin =====-->
+                        <div class="sb-sidenav-menu-heading">#{lenguaje['admin.nombre']}</div>
+                        <!--===== Menu Rol =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/admin/rol.xhtml">
+                           <i class="bi bi-person-badge-fill me-2" />#{lenguaje['admin.rol.nombre']}
+                        </a>
+                        <!--===== Seccion Blt =====-->
+                        <div class="sb-sidenav-menu-heading">#{lenguaje['blt.nombre']}</div>
+                        <!--===== Menu Ruta =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/blt/ruta.xhtml">
+                           <i class="bi bi-bank2 me-2" />#{lenguaje['blt.ruta.nombre']}
+                        </a>
+                        <!--===== Seccion Tab =====-->
+                        <div class="sb-sidenav-menu-heading">#{lenguaje['tab.nombre']}</div>
+                        <!--===== Menu Banco =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/banco.xhtml">
+                           <i class="bi bi-bank2 me-2" />#{lenguaje['tab.banco.nombre']}
+                        </a>
+                        <!--===== Menu Ciudad =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/ciudad.xhtml">
+                           <i class="bi bi-geo-fill me-2" />#{lenguaje['tab.ciudad.nombre']}
+                        </a>
+                        <!--===== Menu Cuenta Banco =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/paneltab/cuentaBanco.xhtml">
+                           <i class="bi bi-card-heading me-2" />#{lenguaje['tab.cuentaBanco.nombre']}
+                        </a>
+                        <!--===== Menu Domcorreo =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/domcorreo.xhtml">
+                           <i class="bi bi-envelope-fill me-2" />#{lenguaje['tab.domcorreo.nombre']}
+                        </a>
+                        <!--===== Menu Parametro =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/parametro.xhtml">
+                           <i class="bi bi-grid-3x3-gap-fill me-2" />#{lenguaje['tab.parametro.nombre']}
+                        </a>
+                        <!--===== Menu Parroquia =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/parroquia.xhtml">
+                           <i class="bi bi-geo-alt-fill me-2" />#{lenguaje['tab.parroquia.nombre']}
+                        </a>
+                        <!--===== Menu Provincia =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/provincia.xhtml">
+                           <i class="bi bi-map-fill me-2" />#{lenguaje['tab.provincia.nombre']}
+                        </a>
+                        <!--===== Seccion =====-->
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <!--===== Menu =====-->
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                           data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                           <i class="bi bi-bullseye" />
+                           <label class="ps-2">Layouts</label>
+                           <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
+                        </a>
+                        <!--===== Submenu =====-->
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                           <nav class="sb-sidenav-menu-nested nav">
+                              <a class="nav-link" href="#">Static Navigation</a>
+                              <a class="nav-link" href="#">Light Sidenav</a>
+                           </nav>
+                        </div>
+                        <!--===== Menu =====-->
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                           data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                           <i class="bi bi-chat-left-dots-fill" />
+                           <label class="ps-2">Pages</label>
+                           <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
+                        </a>
+                        <!--===== Submenu =====-->
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                             data-bs-parent="#sidenavAccordion">
+                           <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                              <!--===== Menu 2 =====-->
+                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                 data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                 Authentication
+                                 <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
+                              </a>
+                              <!--===== Subenu 2 =====-->
+                              <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                   data-bs-parent="#sidenavAccordionPages">
+                                 <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="../session/login.xhtml">Login</a>
+                                    <a class="nav-link" href="../session/register.xhtml">Register</a>
+                                    <a class="nav-link" href="../session/password.xhtml">Forgot Password</a>
+                                 </nav>
+                              </div>
+                              <!--===== Menu 2 =====-->
+                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                 data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                 Error
+                                 <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
+                              </a>
+                              <!--===== Subenu 2 =====-->
+                              <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                 <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">401 Page</a>
+                                    <a class="nav-link" href="#">404 Page</a>
+                                    <a class="nav-link" href="#">500 Page</a>
+                                 </nav>
+                              </div>
+                           </nav>
+                        </div>
+                        <!--===== Seccion =====-->
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        <!--===== Menu =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/charts.xhtml">
+                           <i class="bi bi-cash-coin" />
+                           <label class="ps-2">Charts</label>
+                        </a>
+                        <!--===== Menu =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tables.xhtml">
+                           <i class="bi bi-cash-coin" />
+                           <label class="ps-2">Tables</label>
+                        </a>
+                     </div>
+                  </div>
+                  <div class="sb-sidenav-footer">
+                     <div class="small">#{lenguaje['login.msg']}</div>
+                     Start Bootstrap
+                  </div>
+               </nav>
+            </div>
+
+            <ui:insert name="content">Default content</ui:insert>
+         </div>
+      </h:form>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+              integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+              crossorigin="anonymous"></script>
+      <script src="#{facesContext.externalContext.requestContextPath}/resources/js/script-icc.js"
+              type="application/javascript"></script>
+      <!--script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"
+              type="application/javascript"></script>
+      <script src="../resources/assets/demo/chart-area-demo.js" type="application/javascript"></script>
+      <script src="../resources/assets/demo/chart-bar-demo.js" type="application/javascript"></script>
+      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"
+              type="application/javascript"></script>
+      <script src="../resources/js/datatables-simple-demo.js" type="application/javascript"></script-->
+   </h:body>
+</f:view>
+</html>

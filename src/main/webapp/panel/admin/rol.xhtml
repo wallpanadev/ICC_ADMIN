@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/controlPanel.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:define name="content">
+        <f:loadBundle var="lenguaje" basename="text/lenguaje" />
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="table-responsive">
+                        <h:dataTable id="tabParametro" value="#{parametroController.tabParametroList}" var="parametro"
+                                     styleClass="table text-center table-hover">
+                            <f:facet name="header">
+                                <div class="d-flex justify-content-between">
+                                    <label>&#160;</label>
+                                    <h:outputText value="#{lenguaje['tab.parametro.nombre']}" />
+                                    <!-- Btn Agregar -->
+                                    <button class="btn btn-outline-primary text-end" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#modalParametro"
+                                            jsf:actionListener="#{parametroController.agregarParametro()}">
+                                        <i class="bi bi-plus-lg"/>
+                                        <f:ajax render="form:pnParametro" />
+                                    </button>
+                                </div>
+                            </f:facet>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#" />
+                                </f:facet>
+                                <h:outputText value="#{parametro.idParametro}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{lenguaje['g.nombre']}" />
+                                </f:facet>
+                                <h:outputText value="#{parametro.nombreParametro}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{lenguaje['g.valor']}" />
+                                </f:facet>
+                                <h:outputText value="#{parametro.valorParametro}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="" />
+                                </f:facet>
+                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                    <!-- Btn Editar -->
+                                    <button class="btn btn-outline-primary" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#modalParametro"
+                                            jsf:actionListener="#{parametroController.verParametro(parametro)}">
+                                        <i class="bi bi-pen-fill" />
+                                        <f:ajax render="form:pnParametro" />
+                                    </button>
+                                    <!-- Btn Borrar -->
+                                    <button class="btn btn-outline-primary" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#modalPregunta"
+                                            jsf:actionListener="#{parametroController.verParametro(parametro)}">
+                                        <i class="bi bi-trash-fill" />
+                                        <f:ajax execute="@this" />
+                                    </button>
+                                </div>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    <!-- Modal Agregar/Editar-->
+                    <div class="modal fade" id="modalParametro" tabindex="-1"
+                         aria-labelledby="modalParametro" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">#{lenguaje['tab.parametro.nombre']}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h:panelGroup id="pnParametro" styleClass="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="input-group form-floating validate">
+                                                    <span class="input-group-text text-light bg-primary">
+                                                        <i class="bi bi-input-cursor-text" />
+                                                    </span>
+                                                    <h:inputText id="txtNombre" type="text" class="form-control"
+                                                                 value="#{parametroController.parametro.nombreParametro}"
+                                                                 required="true" a:placeholder="Nombre" />
+                                                    <label for="txtNombre" class="label-floating">Nombre</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="input-group form-floating validate">
+                                                    <span class="input-group-text text-light bg-primary">
+                                                        <i class="bi bi-journal-text" />
+                                                    </span>
+                                                    <h:inputText id="txtValor" type="text" class="form-control"
+                                                                 value="#{parametroController.parametro.valorParametro}"
+                                                                 required="true" a:placeholder="Valor" />
+                                                    <label for="txtValor" class="label-floating">Valor</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- Cancelar -->
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <!-- Guardar -->
+                                    <button class="btn btn-outline-primary" type="button"
+                                            jsf:actionListener="#{parametroController.guardarActualizarParametro()}">
+                                        <span>Guardar</span>
+                                        <i class="bi bi-sd-card-fill" />
+                                        <f:ajax execute="form:pnParametro" render="form:tabParametro"
+                                                onevent="alert('val')" onerror="alert('error')" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Pregunta-->
+                    <div class="modal fade" id="modalPregunta" tabindex="-1"
+                         aria-labelledby="modalPregunta" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">#{lenguaje['tab.parametro.nombre']}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label>#{lenguaje['g.msg.eliminar']}</label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button class="btn btn-outline-primary" type="button"
+                                            jsf:actionListener="#{parametroController.eliminarParametro()}">
+                                        <span>#{lenguaje['g.eliminar']}</span>
+                                        <i class="bi bi-trash" />
+                                        <f:ajax render="form:tabParametro" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-secondary bg-opacity-10 mt-auto ">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">#{lenguaje.copyright} &#169; #{lenguaje.empresa} 2021</div>
+                        <div>
+                            <a href="#">#{lenguaje['politicas-privacidad']}</a>
+
+                            <a href="#">#{lenguaje['terminos-condiciones']}</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </ui:define>
+</ui:composition>
