@@ -17,5 +17,6 @@ public class VentReserva implements Serializable {
     private String asientosReserva;
     private String codalfaReserva;
     private String codqrReserva;
+    private Double totalReserva;
     private Boolean estadopagoReserva;
 }

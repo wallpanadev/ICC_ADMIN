@@ -1,6 +1,8 @@
 package com.boleteria.controller;
 
 import com.boleteria.model.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,7 +10,12 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class VentController {
@@ -20,7 +27,7 @@ public class VentController {
     private String model;
 
     //private final String URL = "http://127.0.0.1:6897/VENT_SERVICE/vent";
-    private final String URL = "http://192.168.0.21:9896/vent"; //--local
+    private final String URL = "http://192.168.0.20:9896/vent"; //--local
 
     /**=========== CLIENTE ===========**/
     public VentCliente obtenerClienteXIdPersona(Integer id) {
@@ -95,6 +102,20 @@ public class VentController {
     }
 
     /**=========== PASAJERO ===========**/
+    public ArrayList<VentPasajero> listarPasajerosXReserva(Integer idReserva) {
+        try {
+            model = "Pasajero/";
+            client = ClientBuilder.newClient();
+            webTarget = client.target(URL + model + "getListByReserva/" + idReserva);
+            return webTarget.request().accept(MediaType.APPLICATION_JSON).get(new GenericType<ArrayList<VentPasajero>>(){});
+        } catch (Exception e) {
+            LOGGER.error("Listar x reserva " + model + ": " + e.getMessage());
+        } finally {
+            client.close();
+        }
+        return null;
+    }
+
     public void guardarPasajeroList(ArrayList<VentPasajero> ventPasajeroList) {
         try {
             model = "Pasajero/";
@@ -110,6 +131,34 @@ public class VentController {
     }
 
     /**=========== RESERVA ===========**/
+    public VentReserva obtenerReservaXId(Integer id) {
+        try {
+            model = "Reserva/";
+            client = ClientBuilder.newClient();
+            webTarget = client.target(URL + model + "getById/" + id);
+            return webTarget.request().get(VentReserva.class);
+        } catch (Exception e) {
+            LOGGER.error("Obtener x id " + model + ": " + e.getMessage());
+        } finally {
+            client.close();
+        }
+        return null;
+    }
+
+    public ArrayList<ListaPasajero> listarReservasXFiltro(Integer idRuta, Integer idAutobus, String fecha, String hora) {
+        try {
+            model = "Reserva/";
+            client = ClientBuilder.newClient();
+            webTarget = client.target(URL + model + "getListFilter/" + idRuta + "/" + idAutobus + "/" + fecha + "/" + hora);
+            return webTarget.request().accept(MediaType.APPLICATION_JSON).get(new GenericType<ArrayList<ListaPasajero>>(){});
+        } catch (Exception e) {
+            LOGGER.error("Listar " + model + ": " + e.getMessage());
+        } finally {
+            client.close();
+        }
+        return null;
+    }
+
     public Integer obtenerTotalReserva() {
         try {
             model = "Reserva/";
@@ -148,5 +197,19 @@ public class VentController {
             client.close();
         }
         return reserva;
+    }
+
+    public String descargarListaPasajeros(Integer idRuta, Integer idAutobus, String fecha, String hora) {
+        try {
+            model = "Reserva/";
+            client = ClientBuilder.newClient();
+            webTarget = client.target(URL + model + "downloadListaPasajeros/" + idRuta + "/" + idAutobus + "/" + fecha + "/" + hora);
+            return webTarget.request().get(String.class);
+        } catch (Exception e) {
+            LOGGER.error("Descargar " + model + ": " + e.getMessage());
+        } finally {
+            client.close();
+        }
+        return null;
     }
 }

@@ -25,9 +25,23 @@ public class BltController {
     private String model;
 
     //private final String URL = "http://127.0.0.1:6897/BLT_SERVICE/blt";
-    private final String URL = "http://192.168.0.21:9895/blt"; //--local
+    private final String URL = "http://192.168.0.20:9895/blt"; //--local
 
     /**=========== BOLETO ===========**/
+    public BltBoleto obtenerBoletoXCodalfa(String cod) {
+        try {
+            model = "Boleto/";
+            client = ClientBuilder.newClient();
+            webTarget = client.target(URL + model + "getByCodalfa/" + cod);
+            return webTarget.request().get(BltBoleto.class);
+        } catch (Exception e) {
+            LOGGER.error("Obtener x codalfa " + model + ": " + e.getMessage());
+        } finally {
+            client.close();
+        }
+        return null;
+    }
+
     public ArrayList<BltBoleto> listarBoletosXCedula(String cedula) {
         try {
             model = "Boleto/";

@@ -34,10 +34,10 @@ public class MensajeController implements Serializable {
                 asignarMensaje(new MensajeToast("Exito", "Información eliminada correctamente"));
                 break;
             case 5:
-                asignarMensaje(new MensajeToast("Advertencia", "No se encontro información", MensajeToast.ICONO_WARN, MensajeToast.COLOR_WARN));
+                asignarMensaje(new MensajeToast("Sin datos", "La lista de pasajero se encuentra vacia", MensajeToast.ICONO_WARN, MensajeToast.COLOR_WARN));
                 break;
             case 6:
-                asignarMensaje(new MensajeToast("Incompleto", "Primero debe ingresar la ciudad de origen", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
+                asignarMensaje(new MensajeToast("Busqueda Exitosa", "Se ha encontrado la siguiente información"));
                 break;
             case 7:
                 asignarMensaje(new MensajeToast("Error Fecha", "Debe ingresar una fecha que se encuentre dentro del rango establecido", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));

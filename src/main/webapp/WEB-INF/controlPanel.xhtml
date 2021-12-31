@@ -25,7 +25,7 @@
    <h:body styleClass="sb-nav-fixed">
       <h:form id="form" a:novalidate="false" enctype="multipart/form-data">
          <!--======= Mensajes Toast =======-->
-         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+         <div class="position-fixed top-0 end-0 p-3" style="z-index: 11000">
             <div id="toast-msg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                <h:panelGroup id="panel-toast" layout="block">
                   <div class="toast-header #{mensajeController.getColorMensaje()} text-light">
@@ -49,7 +49,7 @@
             </a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 tooltip-container"
-                    id="sidebarToggle" href="#!">
+                    id="sidebarToggle" href="#!" type="button">
                <span class="tooltiptext-bottom">#{lenguaje['pagina.panel-control.accion-pi']}</span>
                <i class="navbar-toggler-icon" />
             </button>
@@ -121,6 +121,10 @@
                         <!--===== Menu Ruta =====-->
                         <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/blt/ruta.xhtml">
                            <i class="bi bi-bank2 me-2" />#{lenguaje['blt.ruta.nombre']}
+                        </a>
+                        <!--===== Menu Reserva =====-->
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/blt/listaPasajero.xhtml">
+                           <i class="bi bi-receipt-cutoff me-2" />Boletos
                         </a>
                         <!--===== Seccion Tab =====-->
                         <div class="sb-sidenav-menu-heading">#{lenguaje['tab.nombre']}</div>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/controlPanel.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:define name="content">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h:messages id="msg" globalOnly="true" layout="table" showDetail="true" />
+                    <div class="row mt-3">
+                        <h5>Busqueda:</h5>
+                    </div>
+                    <h:panelGroup id="panelFiltro" layout="block" styleClass="row mt-3">
+                        <div class="col-md-3">
+                            <div class="input-group form-floating">
+                                <h:selectOneMenu id="selectRuta" required="true" styleClass="form-select"
+                                                 value="#{boletoController.idRuta}">
+                                    <f:selectItems value="#{boletoController.rutaList}" var="ruta"
+                                                   itemLabel="#{ruta.nombreRuta}" itemValue="#{ruta.idRuta}" />
+                                </h:selectOneMenu>
+                                <label class="label-floating ms-">Ruta:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group form-floating">
+                                <h:selectOneMenu id="selectBus" required="true" styleClass="form-select"
+                                                 value="#{boletoController.idAutobus}">
+                                    <f:selectItems value="#{boletoController.autobusList}" var="bus"
+                                                   itemLabel="#{bus.numeroAutobus}" itemValue="#{bus.idAutobus}" />
+                                </h:selectOneMenu>
+                                <label class="label-floating ms-">N° Autoús:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group form-floating">
+                                <h:inputText id="fechaFiltro" a:type="date" styleClass="form-control" required="true"
+                                             value="#{boletoController.fechaFiltro}" />
+                                <label class="label-floating ms-">Fecha Salida:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group form-floating">
+                                <h:inputText id="horaFiltro" a:type="time" styleClass="form-control" required="true"
+                                             value="#{boletoController.horaFiltro}" />
+                                <label class="label-floating ms-">Hora Salida:</label>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <div class="row text-center mt-3">
+                        <div>
+                            <h:commandLink id="btnBuscar" styleClass="btn btn-primary"
+                                           action="#{boletoController.buscarListaPasajeros}">
+                                <i class="bi bi-search" /><span class="ms-2">#{lenguaje['g.buscar']}</span>
+                                <f:ajax execute="form:panelFiltro" render="form:tabBoleto form:panel-toast"
+                                        onevent="mostrarToastAjax" />
+                            </h:commandLink>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive overflow-table mt-3">
+                            <h:dataTable id="tabBoleto" value="#{boletoController.listaPasajeros}" var="lista"
+                                         styleClass="table text-center table-hover" headerClass="bg-white">
+                                <f:facet name="header">
+                                    <div class="d-flex justify-content-between">
+                                        <!-- Espacio -->
+                                        <label>&#160;</label>
+                                        <!-- Titutlo -->
+                                        <h:outputText styleClass="fs-4 text-uppercase"
+                                                      value="Lista de Pasajeros" />
+                                        <!-- Botones -->
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <!-- Btn Descargar -->
+                                            <button jsf:immediate="true" class="btn btn-outline-success tooltip-container"
+                                                    jsf:action="#{boletoController.descargarListaPasajeros}">
+                                                <span class="tooltiptext-left">Descargar Lista</span>
+                                                <i class="bi bi-file-earmark-arrow-down-fill" />
+                                            </button>
+                                            <!-- Btn Recargar -->
+                                            <button class="btn btn-outline-success tooltip-container" type="button"
+                                                    jsf:actionListener="#{boletoController.recargarTabla()}">
+                                                <span class="tooltiptext-left">#{lenguaje['g.actualizar-tabla']}</span>
+                                                <i class="bi bi-arrow-repeat" />
+                                                <f:ajax render="form:tabBoleto form:panel-toast"
+                                                        event="click" onevent="deshabilitarRecarga" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </f:facet>
+                                <!-- Column -->
+                                <h:column headerClass="col-header">
+                                    <f:facet name="header">
+                                        <h:outputText value="Boleto" />
+                                    </f:facet>
+                                    <h:outputText value="#{lista.codigo}" />
+                                </h:column>
+                                <!-- Column -->
+                                <h:column headerClass="col-header">
+                                    <f:facet name="header">
+                                        <h:outputText value="Cédula" />
+                                    </f:facet>
+                                    <h:outputText value="#{lista.identificacion}" />
+                                </h:column>
+                                <!-- Column -->
+                                <h:column headerClass="col-header">
+                                    <f:facet name="header">
+                                        <h:outputText value="Cliente" />
+                                    </f:facet>
+                                    <h:outputText value="#{lista.nombres}" />
+                                </h:column>
+                                <!-- Column -->
+                                <h:column headerClass="col-header">
+                                    <f:facet name="header">
+                                        <h:outputText value="Asientos" />
+                                    </f:facet>
+                                    <h:outputText value="#{lista.asientos}" />
+                                </h:column>
+                                <!-- Column -->
+                                <h:column headerClass="col-header">
+                                    <f:facet name="header">
+                                        <h:outputText value="Pagado" />
+                                    </f:facet>
+                                    <h:outputText value="#{lista.estadoPago ? 'Si' : 'No'}" />
+                                </h:column>
+                                <!-- Accion -->
+                                <h:column headerClass="col-header">
+                                    <f:facet name="header">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <!-- Btn Editar -->
+                                        <button class="btn btn-outline-primary tooltip-container" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#modalTabla"
+                                                jsf:actionListener="#{boletoController.verBoleto(lista)}">
+                                            <span class="tooltiptext-top">Ver</span>
+                                            <i class="bi bi-pen-fill" />
+                                            <f:ajax render="form:panelModalForm" />
+                                        </button>
+                                    </div>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Agregar/Editar-->
+                <div class="modal fade" id="modalTabla" tabindex="-1" aria-labelledby="modalTabla" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase">Cliente</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                            </div>
+                            <div class="modal-body">
+                                <!-- Msg -->
+                                <div id="alert-container" class="alert alert-danger alert-dismissible fade show"
+                                     role="alert" style="display: none">
+                                    <h:messages id="msgInput" layout="table"
+                                                errorClass="bi bi-exclamation-triangle-fill tr-before"/>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" />
+                                </div>
+                                <!-- Form -->
+                                <h:panelGroup id="panelModalForm" layout="block" styleClass="container-fluid">
+                                    <small class="text-secondary">Información del Boleto</small>
+                                    <div class="table-responsive p-2 pt-3">
+                                        <table class="table table-borderless text-start fs-7 m-0">
+                                            <tbody>
+                                            <!-- Fila -->
+                                            <tr>
+                                                <th class="py-0">CÓDIGO:</th>
+                                                <th class="py-0">Viaje:</th>
+                                                <th class="py-0">Menores:</th>
+                                                <th class="py-0">Adultos:</th>
+                                                <!--th class="py-0 w-35">Salida:</th>
+                                                <th class="py-0 w-35" jsf:rendered="#{boletoController.boleto.regresoBoleto.length() gt 0}">Retorno:</th-->
+                                            </tr>
+                                            <tr>
+                                                <td class="fs-6">#{boletoController.reserva.codalfaReserva}</td>
+                                                <td>#{boletoController.reserva.idTipoviaje.nombreTipoviaje}</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <!--td>#{boletoController.boleto.salidaBoleto}</td>
+                                                <td jsf:rendered="#{boletoController.boleto.regresoBoleto.length() gt 0}">#{boletoController.boleto.regresoBoleto}</td-->
+                                            </tr>
+                                            <!-- Fila -->
+                                            <tr>
+                                                <th class="py-0">Cédula:</th>
+                                                <th class="py-0">Cliente:</th>
+                                                <th class="py-0">Origen:</th>
+                                                <th class="py-0">Destino:</th>
+                                            </tr>
+                                            <!-- Fila -->
+                                            <tr>
+                                                <td>#{boletoController.reserva.idCliente.idPersona.identificacionPersona}</td>
+                                                <td>#{boletoController.reserva.idCliente.idPersona.nombresPersona} #{boletoController.reserva.idCliente.idPersona.apellidosPersona}</td>
+                                                <td>#{boletoController.reserva.idHorariodetalle.idRutaparada.idParadaIni.nombreParada}</td>
+                                                <td>#{boletoController.reserva.idHorariodetalle.idRutaparada.idParadaFin.nombreParada}</td>
+                                            </tr>
+                                            <!-- Fila -->
+                                            <tr>
+                                                <th class="py-0">Asientos:</th>
+                                                <th class="py-0">VALOR TOTAL:</th>
+                                                <th colspan="2" class="py-0">Pagado:</th>
+                                            </tr>
+                                            <!-- Fila -->
+                                            <tr>
+                                                <td>#{boletoController.reserva.asientosReserva}</td>
+                                                <td class="fs-5">
+                                                    <h:outputText value="#{boletoController.reserva.totalReserva}">
+                                                        <f:convertNumber pattern="$ ##0.00" />
+                                                    </h:outputText>
+                                                </td>
+                                                <td colspan="2">
+                                                    <div class="form-check form-switch cursor-pointer">
+                                                        <h:outputLabel id="lb-si" value="#{boletoController.reserva.estadopagoReserva ? 'Si' : 'No'}"
+                                                                       for="asiento" styleClass="fw-bold" />
+                                                        <h:selectBooleanCheckbox id="asiento"
+                                                                                 value="#{boletoController.reserva.estadopagoReserva}"
+                                                                                 styleClass="form-check-input">
+                                                            <f:ajax event="change" render="form:lb-si"/>
+                                                        </h:selectBooleanCheckbox>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <h:panelGroup styleClass="table-responsive"
+                                                  rendered="#{boletoController.pasajeroList.size() gt 0}">
+                                        <hr />
+                                        <h:dataTable value="#{boletoController.pasajeroList}" var="pasajero"
+                                                     styleClass="table text-center table-hover" headerClass="bg-white">
+                                            <f:facet name="header">
+                                                <h:outputText styleClass="fs-5 text-uppercase" value="Acompañantes" />
+                                            </f:facet>
+                                            <!-- Column -->
+                                            <h:column headerClass="col-header">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cédula" />
+                                                </f:facet>
+                                                <h:outputText value="#{pasajero.idPersona.identificacionPersona}" />
+                                            </h:column>
+                                            <!-- Column -->
+                                            <h:column headerClass="col-header">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Pasajero" />
+                                                </f:facet>
+                                                <h:outputText value="#{pasajero.idPersona.nombresPersona} #{pasajero.idPersona.apellidosPersona}" />
+                                            </h:column>
+                                        </h:dataTable>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- Cancelar -->
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    <i class="bi bi-x me-2" />#{lenguaje['g.cancelar']}
+                                </button>
+                                <!-- Guardar -->
+                                <button class="btn btn-outline-primary" type="button"
+                                        jsf:actionListener="#{parametroController.guardarActualizarParametro()}">
+                                    <i class="bi bi-sd-card-fill me-2" />#{lenguaje['g.guardar']}
+                                    <f:ajax execute="@form" render="form:tabParametro form:msgInput form:panel-toast"
+                                            onevent="validarModal()" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <ui:include src="/WEB-INF/controlPanelFooter.xhtml" />
+        </div>
+    </ui:define>
+</ui:composition>

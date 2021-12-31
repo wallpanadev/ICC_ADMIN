@@ -12,12 +12,15 @@ public class BltBoleto {
     private String regresoBoleto;
     private String tipoviajeBoleto;
     private String rutaBoleto;
+    private String origenBoleto;
     private String destinoBoleto;
     private String autobusBoleto;
     private String cedulaBoleto;
     private String clienteBoleto;
     private String asientosBoleto;
-    private double valorBoleto;
-    private boolean pagadoBoleto;
+    private Integer menoresBoleto;
+    private Integer adultosBoleto;
+    private Double valorBoleto;
+    private Boolean pagadoBoleto;
     private String registroBoleto;
 }
