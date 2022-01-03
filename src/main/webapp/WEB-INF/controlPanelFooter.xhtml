@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
    <!--========== Footer ==========-->
    <footer class="py-4 bg-secondary bg-opacity-10 mt-auto ">
       <div class="container-fluid px-4">
          <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">#{lenguaje.copyright} &#169; #{lenguaje.empresa} 2021</div>
-            <div>
+            <div class="text-muted">#{lenguaje.copyright} &#169; #{lenguaje.empresa} 2022</div>
+            <h:panelGroup layout="block" rendered="false">
                <a href="#">#{lenguaje['politicas-privacidad']}</a>
 
                <a href="#">#{lenguaje['terminos-condiciones']}</a>
-            </div>
+            </h:panelGroup>
          </div>
       </div>
    </footer>

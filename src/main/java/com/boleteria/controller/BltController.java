@@ -25,7 +25,7 @@ public class BltController {
     private String model;
 
     //private final String URL = "http://127.0.0.1:6897/BLT_SERVICE/blt";
-    private final String URL = "http://192.168.0.20:9895/blt"; //--local
+    private final String URL = "http://192.168.0.21:9895/blt"; //--local
 
     /**=========== BOLETO ===========**/
     public BltBoleto obtenerBoletoXCodalfa(String cod) {
