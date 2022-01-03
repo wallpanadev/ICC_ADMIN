@@ -7,8 +7,6 @@ import com.boleteria.controller.VentController;
 import com.boleteria.enums.TipoMensaje;
 import com.boleteria.model.*;
 import com.boleteria.util.Cronometro;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

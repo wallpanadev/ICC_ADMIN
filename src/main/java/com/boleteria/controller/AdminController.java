@@ -1,7 +1,5 @@
 package com.boleteria.controller;
 
-import com.boleteria.model.BltBoleto;
-import com.boleteria.model.Usuario;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +9,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 
 public class AdminController {
     private static final Logger LOGGER = LogManager.getLogger(AdminController.class);

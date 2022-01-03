@@ -1,11 +1,9 @@
 package com.boleteria.controller;
 
-import com.boleteria.model.AdminUsuario;
 import com.boleteria.model.Usuario;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 
