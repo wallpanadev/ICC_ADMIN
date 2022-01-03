@@ -11,6 +11,12 @@ if (toastLive) {
     toast = new bootstrap.Toast(toastLive);
 }
 
+var modal = document.getElementById('modalTabla');
+var myModal;
+if (modal) {
+    myModal = new bootstrap.Modal(modal);
+}
+
 var timer;
 var segundos = 0;
 var tiempoEspera = 15;
@@ -271,6 +277,13 @@ function deshabilitarRecarga(data) {
                 }
             }, 1000);
         }
+        toast.show();
+    }
+}
+
+function validarModal(data) {
+    if (data.status === 'success') {
+        myModal.hide();
         toast.show();
     }
 }

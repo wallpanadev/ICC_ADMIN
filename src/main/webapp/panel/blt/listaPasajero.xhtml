@@ -259,11 +259,11 @@
                                     <i class="bi bi-x me-2" />#{lenguaje['g.cancelar']}
                                 </button>
                                 <!-- Guardar -->
-                                <button class="btn btn-outline-primary" type="button"
-                                        jsf:actionListener="#{parametroController.guardarActualizarParametro()}">
-                                    <i class="bi bi-sd-card-fill me-2" />#{lenguaje['g.guardar']}
-                                    <f:ajax execute="@form" render="form:tabParametro form:msgInput form:panel-toast"
-                                            onevent="validarModal()" />
+                                <button class="btn btn-outline-primary"
+                                        jsf:actionListener="#{boletoController.actualizarPagoBoleto}">
+                                    <i class="bi bi-sd-card-fill me-2" />#{lenguaje['g.actualizar']}
+                                    <f:ajax event="click" execute="@form" render="form:tabBoleto form:panel-toast"
+                                            onevent="validarModal" />
                                 </button>
                             </div>
                         </div>

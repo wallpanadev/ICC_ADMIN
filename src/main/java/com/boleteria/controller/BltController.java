@@ -73,6 +73,20 @@ public class BltController {
         }
     }
 
+    public void actualizarBoleto(BltBoleto bltBoleto) {
+        try {
+            model = "Boleto/";
+            client = ClientBuilder.newClient();
+            webTarget = client.target(URL + model + "update");
+            response = webTarget.request().put(Entity.json(bltBoleto));
+        } catch (Exception e) {
+            LOGGER.error("update " + model + ": " + e.getMessage());
+        } finally {
+            response.close();
+            client.close();
+        }
+    }
+
     public String descargarBoleto(String cod) {
         try {
             model = "Boleto/";

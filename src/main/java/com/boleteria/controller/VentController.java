@@ -169,29 +169,18 @@ public class VentController {
         return null;
     }
 
-    public VentReserva cudReserva(VentReserva ventReserva, char cud) {
-        VentReserva reserva = new VentReserva();
+    public void actualizarReserva(VentReserva ventReserva) {
         try {
             model = "Reserva/";
             client = ClientBuilder.newClient();
-            switch (cud) {
-                case 's':
-                    webTarget = client.target(URL + model + "save");
-                    response = webTarget.request().post(Entity.json(ventReserva));
-                    reserva = response.readEntity(VentReserva.class);
-                    break;
-                case 'u':
-                    webTarget = client.target(URL + model + "update");
-                    response = webTarget.request().put(Entity.json(ventReserva));
-                    break;
-            }
+            webTarget = client.target(URL + model + "update");
+            response = webTarget.request().put(Entity.json(ventReserva));
         } catch (Exception e) {
-            LOGGER.error("cud " + model + ": " + e.getMessage());
+            LOGGER.error("actualizar " + model + ": " + e.getMessage());
         } finally {
             response.close();
             client.close();
         }
-        return reserva;
     }
 
     public String descargarListaPasajeros(Integer idRuta, Integer idAutobus, String fecha, String hora) {

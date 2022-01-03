@@ -8,9 +8,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-<f:event type="preRenderView" listener="#{loginController.verificarUsuarioAdmin()}"/>
 <f:view locale="#{localBean.locale}">
    <h:head>
+      <f:event type="preRenderView" listener="#{loginController.verificarUsuarioAdmin()}"/>
       <link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/favicon.ico" />
       <f:loadBundle var="lenguaje" basename="text/lenguaje" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -49,11 +49,11 @@
                     alt="logo-icc" width="200" />
             </a>
             <!-- Sidebar Toggle-->
-            <h:commandLink rendered="false" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 tooltip-container"
-                           id="sidebarToggle" href="#!" type="button">
+            <a class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 tooltip-container"
+               id="sidebarToggle" href="#!">
                <span class="tooltiptext-bottom">#{lenguaje['pagina.panel-control.accion-pi']}</span>
                <i class="navbar-toggler-icon" />
-            </h:commandLink>
+            </a>
             <!-- Navbar Search-->
             <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 w-25">
                <h:panelGroup rendered="false" class="input-group">

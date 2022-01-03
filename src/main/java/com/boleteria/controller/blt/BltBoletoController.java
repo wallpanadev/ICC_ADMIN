@@ -136,6 +136,17 @@ public class BltBoletoController extends Cronometro implements Serializable {
         pasajeroList = ventController.listarPasajerosXReserva(listaPasajero.getIdReserva());
     }
 
+    public void actualizarPagoBoleto() {
+        ventController.actualizarReserva(reserva);
+        buscarListaPasajeros();
+        BltBoleto  bltBoleto = bltController.obtenerBoletoXCodalfa(reserva.getCodalfaReserva());
+        if (bltBoleto != null) {
+            bltBoleto.setPagadoBoleto(true);
+            bltController.actualizarBoleto(bltBoleto);
+        }
+        MensajeController.contruirMensaje(TipoMensaje.ACTUALIZAR);
+    }
+
     public ArrayList<ListaPasajero> getListaPasajeros() {
         return listaPasajeros;
     }
