@@ -1,4 +1,4 @@
-package com.boleteria.controller.blt;
+package com.boleteria.controller.vent;
 
 import com.boleteria.controller.BltController;
 import com.boleteria.controller.ImbaController;
@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-@Named("boletoController")
+@Named("reservaController")
 @ViewScoped
-public class BltBoletoController extends Cronometro implements Serializable {
-    private static final Logger LOGGER = LogManager.getLogger(BltBoletoController.class);
+public class VentReservaController extends Cronometro implements Serializable {
+    private static final Logger LOGGER = LogManager.getLogger(VentReservaController.class);
 
     private final VentController ventController = new VentController();
     private final BltController bltController = new BltController();
@@ -50,7 +50,7 @@ public class BltBoletoController extends Cronometro implements Serializable {
     private final DateTimeFormatter formatterDateHTML = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final DateTimeFormatter formatterTimeHTML = DateTimeFormatter.ofPattern("HH:mm");
 
-    public BltBoletoController() {
+    public VentReservaController() {
         rutaList = bltController.listarRutas();
         autobusList = imbaController.listarAutobuses();
 
@@ -87,6 +87,8 @@ public class BltBoletoController extends Cronometro implements Serializable {
             } finally {
                 fc.responseComplete();
             }
+        } else {
+            MensajeController.contruirMensaje(TipoMensaje.TABLA_VACIA);
         }
     }
 

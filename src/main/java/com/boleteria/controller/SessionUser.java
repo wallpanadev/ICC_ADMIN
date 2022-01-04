@@ -16,10 +16,6 @@ public class SessionUser implements Serializable {
         externalContext.getSessionMap().put(tipoUsuario, u);
     }
 
-    /*public void crearSesion(FacesContext fc, Object o) {
-        fc.getExternalContext().getSessionMap().put(globalParameters.getPageSession(), o);
-    }*/
-
     public void cerrarSesion(ExternalContext externalContext) {
         externalContext.getSessionMap().remove(tipoUsuario);
     }
@@ -27,8 +23,4 @@ public class SessionUser implements Serializable {
     public Usuario obtenerUsuario(ExternalContext externalContext) {
         return (Usuario) externalContext.getSessionMap().get(tipoUsuario);
     }
-
-    /*public Object obtenerSesion(FacesContext fc) {
-        return fc.getExternalContext().getSessionMap().get(globalParameters.getPageSession());
-    }*/
 }

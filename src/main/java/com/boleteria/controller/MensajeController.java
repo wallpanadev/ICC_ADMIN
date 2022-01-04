@@ -40,46 +40,10 @@ public class MensajeController implements Serializable {
                 asignarMensaje(new MensajeToast("Busqueda Exitosa", "Se ha encontrado la siguiente información"));
                 break;
             case 7:
-                asignarMensaje(new MensajeToast("Error Fecha", "Debe ingresar una fecha que se encuentre dentro del rango establecido", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
+                asignarMensaje(new MensajeToast("Tabla Vacia", "No se ha encontrado información para descargar el reporte", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
                 break;
             case 8:
-                asignarMensaje(new MensajeToast("Incompleto", "Primero debe ingresar la fecha de ida", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 9:
-                asignarMensaje(new MensajeToast("Sin buses", "No existen unidades para la fecha y ruta ingresada"));
-                break;
-            case 10:
-                asignarMensaje(new MensajeToast("Máximo de Asientos", "Agregue más pasajeros para poder seleccionar asientos adicionales", MensajeToast.ICONO_WARN, MensajeToast.COLOR_WARN));
-                break;
-            case 11:
-                asignarMensaje(new MensajeToast("Selección Automatica Activo", "Deshabilite la seleccion automatica para poder escoger los asientos deseados"));
-                break;
-            case 12:
-                asignarMensaje(new MensajeToast("Seleccion Asientos", "Debe seleccionar todos los asientos para los pasajeros", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 13:
-                asignarMensaje(new MensajeToast("Límite Pasajeros", "Límite pasajeros sobrepasado", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 14:
-                asignarMensaje(new MensajeToast("Sin buses - Retorno", "No existen unidades para la fecha y ruta de regreso ingresado", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 15:
-                asignarMensaje(new MensajeToast("Error fecha de nacimiento", "Solo puede realizar la compra si es mayor de edad", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 16:
-                asignarMensaje(new MensajeToast("Celular Incorrecto", "Ingrese un número de celular valido", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 17:
-                asignarMensaje(new MensajeToast("Dirección Incorrecta", "Ingrese una dirección valida", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 18:
-                asignarMensaje(new MensajeToast("Error Pasajeros", "Un adulto debe realizar la compra", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 19:
-                asignarMensaje(new MensajeToast("Falta autobus ida", "Debe seleccionar el aubotbus de ida", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 20:
-                asignarMensaje(new MensajeToast("Incompleto", "Debe leer y aceptar los términos de la compañía", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
+                asignarMensaje(new MensajeToast("En proceso...", "La descarga se realizará en unos segundos"));
                 break;
         }
     }

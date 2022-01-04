@@ -42,37 +42,6 @@ public class BltController {
         return null;
     }
 
-    public ArrayList<BltBoleto> listarBoletosXCedula(String cedula) {
-        try {
-            model = "Boleto/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "getListByCedula/" + cedula);
-            gson = new Gson();
-            type = new TypeToken<ArrayList<BltBoleto>>(){}.getType();
-
-            return gson.fromJson(webTarget.request().get(String.class), type);
-        } catch (Exception e) {
-            LOGGER.error("Listar x cedula " + model + ": " + e.getMessage());
-        } finally {
-            client.close();
-        }
-        return null;
-    }
-
-    public void guardarBoleto(BltBoleto bltBoleto) {
-        try {
-            model = "Boleto/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "save");
-            response = webTarget.request().post(Entity.json(bltBoleto));
-        } catch (Exception e) {
-            LOGGER.error("save " + model + ": " + e.getMessage());
-        } finally {
-            response.close();
-            client.close();
-        }
-    }
-
     public void actualizarBoleto(BltBoleto bltBoleto) {
         try {
             model = "Boleto/";
@@ -87,38 +56,7 @@ public class BltController {
         }
     }
 
-    public String descargarBoleto(String cod) {
-        try {
-            model = "Boleto/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "downloadBoleto/" + cod);
-            return webTarget.request().get(String.class);
-        } catch (Exception e) {
-            LOGGER.error("Descargar " + model + ": " + e.getMessage());
-        } finally {
-            client.close();
-        }
-        return null;
-    }
-
     /**=========== HORARIO ===========**/
-    public ArrayList<BltHorario> listarHorariosXIdRuta(Integer id, String fechaHora) {
-        try {
-            model = "Horario/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "getListByRutaYHorario/" + id + "/" + fechaHora);
-            gson = new Gson();
-            type = new TypeToken<ArrayList<BltHorario>>(){}.getType();
-
-            return gson.fromJson(webTarget.request().get(String.class), type);
-        } catch (Exception e) {
-            LOGGER.error("Listar x idRuta y horario " + model +": " + e.getMessage());
-        } finally {
-            client.close();
-        }
-        return null;
-    }
-
     public BltHorario guardarHorario(BltHorario bltHorario) {
         try {
             model = "Horario/";
@@ -133,20 +71,6 @@ public class BltController {
             client.close();
         }
         return null;
-    }
-
-    public void actualizarHorario(BltHorario bltHorario) {
-        try {
-            model = "Horario/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "update");
-            response = webTarget.request().put(Entity.json(bltHorario));
-        } catch (Exception e) {
-            LOGGER.error("update " + model + ": " + e.getMessage());
-        } finally {
-            response.close();
-            client.close();
-        }
     }
 
     /**=========== BLT_RUTA ===========**/
@@ -165,81 +89,6 @@ public class BltController {
             client.close();
         }
         return null;
-    }
-
-    public ArrayList<TabCiudad> listarCiudadIni() {
-        try {
-            model = "Ruta/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "getCiudadIniList");
-            gson = new Gson();
-            type = new TypeToken<ArrayList<TabCiudad>>(){}.getType();
-
-            return gson.fromJson(webTarget.request().get(String.class), type);
-        } catch (Exception e) {
-            LOGGER.error("Listar ciudad ini" + model + ": " + e.getMessage());
-        } finally {
-            client.close();
-        }
-        return null;
-    }
-
-    public ArrayList<TabCiudad> listarCiudadFin(String codCiudadIni) {
-        try {
-            model = "Ruta/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "getCiudadFinList/" + codCiudadIni);
-            gson = new Gson();
-            type = new TypeToken<ArrayList<TabCiudad>>(){}.getType();
-
-            return gson.fromJson(webTarget.request().get(String.class), type);
-        } catch (Exception e) {
-            LOGGER.error("Listar ciudad fin " + model + ": " + e.getMessage());
-        } finally {
-            client.close();
-        }
-        return null;
-    }
-
-    public BltRuta listarRutasXCiudades(String codCiudadIni, String codCiudadFin) {
-        try {
-            model = "Ruta/";
-            client = ClientBuilder.newClient();
-            webTarget = client.target(URL + model + "getByCiudades/" + codCiudadIni + "/" + codCiudadFin);
-
-            return webTarget.request().get(BltRuta.class);
-        } catch (Exception e) {
-            LOGGER.error("Obtener x ciudades " + model + ": " + e.getMessage());
-        } finally {
-            client.close();
-        }
-        return null;
-    }
-
-    public void cudRuta(BltRuta bltRuta, char cud) {
-        try {
-            model = "Ruta/";
-            client = ClientBuilder.newClient();
-            switch (cud) {
-                case 's':
-                    webTarget = client.target(URL + model + "save");
-                    response = webTarget.request().post(Entity.json(bltRuta));
-                    break;
-                case 'u':
-                    webTarget = client.target(URL + model + "update");
-                    response = webTarget.request().put(Entity.json(bltRuta));
-                    break;
-                case 'd':
-                    webTarget = client.target(URL + model + "delete/" + bltRuta.getIdRuta());
-                    response = webTarget.request().put(Entity.json(bltRuta.getIdRuta()));
-                    break;
-            }
-        } catch (Exception e) {
-            LOGGER.error("cud " + model + ": " + e.getMessage());
-        } finally {
-            response.close();
-            client.close();
-        }
     }
 
     public ArrayList<BltRutaparada> obtenerRutaparadaXIdRuta(Integer id) {

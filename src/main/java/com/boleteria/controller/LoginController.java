@@ -69,22 +69,6 @@ public class LoginController implements Serializable {
         externalContext.redirect(externalContext.getRequestContextPath() + "/inicio");
     }
 
-    /*public void guardarUsuario() throws IOException {
-        FacesContext fc = FacesContext.getCurrentInstance();
-
-        usuario.setIdCliente(read.obtenerClienteXCedula(cliente.getIdentificacionCliente()));
-        usuario.setPasswordUser(password.getBytes());
-        create.guardarUsuario(usuario);
-
-        sessionUser.iniciarSesion(globalParameters.getUserClient(), fc, usuario);
-
-        if (sessionUser.obtenerUsuario(fc, globalParameters.getPageSession()) != null) {
-            fc.getExternalContext().redirect("./confirmaVuelo.xhtml");
-        } else {
-            fc.getExternalContext().redirect("./../index.xhtml?faces-redirect=true");
-        }
-    }*/
-
     public Usuario getUsuario() {
         return usuario;
     }

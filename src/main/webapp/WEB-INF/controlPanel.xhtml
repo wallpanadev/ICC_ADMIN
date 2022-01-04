@@ -18,7 +18,6 @@
       <meta name="description" content="" />
       <meta name="author" content="" />
       <title>#{lenguaje['pagina.panel-control']} | #{lenguaje.empresa}</title>
-      <!--link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /-->
       <link rel="stylesheet" type="text/css"
             href="#{facesContext.externalContext.requestContextPath}/resources/css/style-icc.css" />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" />
@@ -35,9 +34,7 @@
                      <small>Justo Ahora</small>
                      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" />
                   </div>
-                  <div id="pc-toast-body" class="toast-body">
-                     #{mensajeController.getDetalle()}
-                  </div>
+                  <div id="pc-toast-body" class="toast-body">#{mensajeController.getDetalle()}</div>
                </h:panelGroup>
             </div>
          </div>
@@ -45,7 +42,7 @@
          <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="#{facesContext.externalContext.requestContextPath}/panel/">
-               <img src="#{facesContext.externalContext.requestContextPath}/resources/images/logo_icc_light.png"
+               <img src="#{facesContext.externalContext.requestContextPath}/resources/images/logo_icc.png"
                     alt="logo-icc" width="200" />
             </a>
             <!-- Sidebar Toggle-->
@@ -113,120 +110,9 @@
                      <div class="nav">
                         <!--===== Seccion Admin =====-->
                         <div class="sb-sidenav-menu-heading">#{lenguaje['admin.nombre']}</div>
-                        <!--===== Menu Rol =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/admin/rol.xhtml">
-                           <i class="bi bi-person-badge-fill me-2" />#{lenguaje['admin.rol.nombre']}
-                        </a>
-                        <!--===== Seccion Blt =====-->
-                        <div class="sb-sidenav-menu-heading">#{lenguaje['blt.nombre']}</div>
-                        <!--===== Menu Ruta =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/blt/ruta.xhtml">
-                           <i class="bi bi-bank2 me-2" />#{lenguaje['blt.ruta.nombre']}
-                        </a>
                         <!--===== Menu Reserva =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/blt/listaPasajero.xhtml">
-                           <i class="bi bi-receipt-cutoff me-2" />Boletos
-                        </a>
-                        <!--===== Seccion Tab =====-->
-                        <div class="sb-sidenav-menu-heading">#{lenguaje['tab.nombre']}</div>
-                        <!--===== Menu Banco =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/banco.xhtml">
-                           <i class="bi bi-bank2 me-2" />#{lenguaje['tab.banco.nombre']}
-                        </a>
-                        <!--===== Menu Ciudad =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/ciudad.xhtml">
-                           <i class="bi bi-geo-fill me-2" />#{lenguaje['tab.ciudad.nombre']}
-                        </a>
-                        <!--===== Menu Cuenta Banco =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/paneltab/cuentaBanco.xhtml">
-                           <i class="bi bi-card-heading me-2" />#{lenguaje['tab.cuentaBanco.nombre']}
-                        </a>
-                        <!--===== Menu Domcorreo =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/domcorreo.xhtml">
-                           <i class="bi bi-envelope-fill me-2" />#{lenguaje['tab.domcorreo.nombre']}
-                        </a>
-                        <!--===== Menu Parametro =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/parametro.xhtml">
-                           <i class="bi bi-grid-3x3-gap-fill me-2" />#{lenguaje['tab.parametro.nombre']}
-                        </a>
-                        <!--===== Menu Parroquia =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tab/parroquia.xhtml">
-                           <i class="bi bi-geo-alt-fill me-2" />#{lenguaje['tab.parroquia.nombre']}
-                        </a>
-                        <!--===== Menu Provincia =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/provincia.xhtml">
-                           <i class="bi bi-map-fill me-2" />#{lenguaje['tab.provincia.nombre']}
-                        </a>
-                        <!--===== Seccion =====-->
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <!--===== Menu =====-->
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                           data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                           <i class="bi bi-bullseye" />
-                           <label class="ps-2">Layouts</label>
-                           <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
-                        </a>
-                        <!--===== Submenu =====-->
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
-                             data-bs-parent="#sidenavAccordion">
-                           <nav class="sb-sidenav-menu-nested nav">
-                              <a class="nav-link" href="#">Static Navigation</a>
-                              <a class="nav-link" href="#">Light Sidenav</a>
-                           </nav>
-                        </div>
-                        <!--===== Menu =====-->
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                           data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                           <i class="bi bi-chat-left-dots-fill" />
-                           <label class="ps-2">Pages</label>
-                           <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
-                        </a>
-                        <!--===== Submenu =====-->
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
-                             data-bs-parent="#sidenavAccordion">
-                           <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                              <!--===== Menu 2 =====-->
-                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                 data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                 Authentication
-                                 <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
-                              </a>
-                              <!--===== Subenu 2 =====-->
-                              <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                   data-bs-parent="#sidenavAccordionPages">
-                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../session/login.xhtml">Login</a>
-                                    <a class="nav-link" href="../session/register.xhtml">Register</a>
-                                    <a class="nav-link" href="../session/password.xhtml">Forgot Password</a>
-                                 </nav>
-                              </div>
-                              <!--===== Menu 2 =====-->
-                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                 data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                 Error
-                                 <span class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill" /></span>
-                              </a>
-                              <!--===== Subenu 2 =====-->
-                              <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">401 Page</a>
-                                    <a class="nav-link" href="#">404 Page</a>
-                                    <a class="nav-link" href="#">500 Page</a>
-                                 </nav>
-                              </div>
-                           </nav>
-                        </div>
-                        <!--===== Seccion =====-->
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <!--===== Menu =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/charts.xhtml">
-                           <i class="bi bi-cash-coin" />
-                           <label class="ps-2">Charts</label>
-                        </a>
-                        <!--===== Menu =====-->
-                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/tables.xhtml">
-                           <i class="bi bi-cash-coin" />
-                           <label class="ps-2">Tables</label>
+                        <a class="nav-link" href="#{facesContext.externalContext.requestContextPath}/panel/vent/listaPasajero">
+                           <i class="bi bi-receipt-cutoff me-2" />Lista Pasajeros
                         </a>
                      </div>
                   </div>
@@ -236,8 +122,13 @@
                   </div>
                </nav>
             </div>
-
             <ui:insert name="content">Default content</ui:insert>
+            <!--======================== Spinner ========================-->
+            <div id="loading" class="fixed-bottom text-end pe-5 pb-4" style="display: none; z-index: 100000">
+               <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+               </div>
+            </div>
          </div>
       </h:form>
       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

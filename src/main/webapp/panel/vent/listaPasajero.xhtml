@@ -18,8 +18,8 @@
                         <div class="col-md-3">
                             <div class="input-group form-floating">
                                 <h:selectOneMenu id="selectRuta" required="true" styleClass="form-select"
-                                                 value="#{boletoController.idRuta}">
-                                    <f:selectItems value="#{boletoController.rutaList}" var="ruta"
+                                                 value="#{reservaController.idRuta}">
+                                    <f:selectItems value="#{reservaController.rutaList}" var="ruta"
                                                    itemLabel="#{ruta.nombreRuta}" itemValue="#{ruta.idRuta}" />
                                 </h:selectOneMenu>
                                 <label class="label-floating ms-">Ruta:</label>
@@ -28,8 +28,8 @@
                         <div class="col-md-3">
                             <div class="input-group form-floating">
                                 <h:selectOneMenu id="selectBus" required="true" styleClass="form-select"
-                                                 value="#{boletoController.idAutobus}">
-                                    <f:selectItems value="#{boletoController.autobusList}" var="bus"
+                                                 value="#{reservaController.idAutobus}">
+                                    <f:selectItems value="#{reservaController.autobusList}" var="bus"
                                                    itemLabel="#{bus.numeroAutobus}" itemValue="#{bus.idAutobus}" />
                                 </h:selectOneMenu>
                                 <label class="label-floating ms-">N° Autobús:</label>
@@ -38,14 +38,14 @@
                         <div class="col-md-3">
                             <div class="input-group form-floating">
                                 <h:inputText id="fechaFiltro" a:type="date" styleClass="form-control" required="true"
-                                             value="#{boletoController.fechaFiltro}" />
+                                             value="#{reservaController.fechaFiltro}" />
                                 <label class="label-floating ms-">Fecha Salida:</label>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="input-group form-floating">
                                 <h:inputText id="horaFiltro" a:type="time" styleClass="form-control" required="true"
-                                             value="#{boletoController.horaFiltro}" />
+                                             value="#{reservaController.horaFiltro}" />
                                 <label class="label-floating ms-">Hora Salida:</label>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                     <div class="row text-center mt-3">
                         <div>
                             <h:commandLink id="btnBuscar" styleClass="btn btn-primary"
-                                           action="#{boletoController.buscarListaPasajeros}">
+                                           action="#{reservaController.buscarListaPasajeros}">
                                 <i class="bi bi-search" /><span class="ms-2">#{lenguaje['g.buscar']}</span>
                                 <f:ajax execute="form:panelFiltro" render="form:tabBoleto form:panel-toast"
                                         onevent="mostrarToastAjax" />
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row">
                         <div class="table-responsive overflow-table mt-3">
-                            <h:dataTable id="tabBoleto" value="#{boletoController.listaPasajeros}" var="lista"
+                            <h:dataTable id="tabBoleto" value="#{reservaController.listaPasajeros}" var="lista"
                                          styleClass="table text-center table-hover" headerClass="bg-white">
                                 <f:facet name="header">
                                     <div class="d-flex justify-content-between">
@@ -75,13 +75,13 @@
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             <!-- Btn Descargar -->
                                             <button jsf:immediate="true" class="btn btn-outline-success tooltip-container"
-                                                    jsf:action="#{boletoController.descargarListaPasajeros}">
+                                                    jsf:action="#{reservaController.descargarListaPasajeros}" onclick="showLoader()">
                                                 <span class="tooltiptext-left">Descargar Lista</span>
                                                 <i class="bi bi-file-earmark-arrow-down-fill" />
                                             </button>
                                             <!-- Btn Recargar -->
                                             <button class="btn btn-outline-success tooltip-container" type="button"
-                                                    jsf:actionListener="#{boletoController.recargarTabla()}">
+                                                    jsf:actionListener="#{reservaController.recargarTabla()}">
                                                 <span class="tooltiptext-left">#{lenguaje['g.actualizar-tabla']}</span>
                                                 <i class="bi bi-arrow-repeat" />
                                                 <f:ajax render="form:tabBoleto form:panel-toast"
@@ -134,7 +134,7 @@
                                         <!-- Btn Editar -->
                                         <button class="btn btn-outline-primary tooltip-container" type="button"
                                                 data-bs-toggle="modal" data-bs-target="#modalTabla"
-                                                jsf:actionListener="#{boletoController.verBoleto(lista)}">
+                                                jsf:actionListener="#{reservaController.verBoleto(lista)}">
                                             <span class="tooltiptext-top">Ver</span>
                                             <i class="bi bi-pen-fill" />
                                             <f:ajax render="form:panelModalForm" />
@@ -177,8 +177,8 @@
                                                 <th class="py-0 w-35" jsf:rendered="#{boletoController.boleto.regresoBoleto.length() gt 0}">Retorno:</th-->
                                             </tr>
                                             <tr>
-                                                <td class="fs-6">#{boletoController.reserva.codalfaReserva}</td>
-                                                <td>#{boletoController.reserva.idTipoviaje.nombreTipoviaje}</td>
+                                                <td class="fs-6">#{reservaController.reserva.codalfaReserva}</td>
+                                                <td>#{reservaController.reserva.idTipoviaje.nombreTipoviaje}</td>
                                                 <td>0</td>
                                                 <td>0</td>
                                                 <!--td>#{boletoController.boleto.salidaBoleto}</td>
@@ -193,10 +193,10 @@
                                             </tr>
                                             <!-- Fila -->
                                             <tr>
-                                                <td>#{boletoController.reserva.idCliente.idPersona.identificacionPersona}</td>
-                                                <td>#{boletoController.reserva.idCliente.idPersona.nombresPersona} #{boletoController.reserva.idCliente.idPersona.apellidosPersona}</td>
-                                                <td>#{boletoController.reserva.idHorariodetalle.idRutaparada.idParadaIni.nombreParada}</td>
-                                                <td>#{boletoController.reserva.idHorariodetalle.idRutaparada.idParadaFin.nombreParada}</td>
+                                                <td>#{reservaController.reserva.idCliente.idPersona.identificacionPersona}</td>
+                                                <td>#{reservaController.reserva.idCliente.idPersona.nombresPersona} #{reservaController.reserva.idCliente.idPersona.apellidosPersona}</td>
+                                                <td>#{reservaController.reserva.idHorariodetalle.idRutaparada.idParadaIni.nombreParada}</td>
+                                                <td>#{reservaController.reserva.idHorariodetalle.idRutaparada.idParadaFin.nombreParada}</td>
                                             </tr>
                                             <!-- Fila -->
                                             <tr>
@@ -206,18 +206,18 @@
                                             </tr>
                                             <!-- Fila -->
                                             <tr>
-                                                <td>#{boletoController.reserva.asientosReserva}</td>
+                                                <td>#{reservaController.reserva.asientosReserva}</td>
                                                 <td class="fs-5">
-                                                    <h:outputText value="#{boletoController.reserva.totalReserva}">
+                                                    <h:outputText value="#{reservaController.reserva.totalReserva}">
                                                         <f:convertNumber pattern="$ ##0.00" />
                                                     </h:outputText>
                                                 </td>
                                                 <td colspan="2">
                                                     <div class="form-check form-switch cursor-pointer">
-                                                        <h:outputLabel id="lb-si" value="#{boletoController.reserva.estadopagoReserva ? 'Si' : 'No'}"
+                                                        <h:outputLabel id="lb-si" value="#{reservaController.reserva.estadopagoReserva ? 'Si' : 'No'}"
                                                                        for="asiento" styleClass="fw-bold" />
                                                         <h:selectBooleanCheckbox id="asiento"
-                                                                                 value="#{boletoController.reserva.estadopagoReserva}"
+                                                                                 value="#{reservaController.reserva.estadopagoReserva}"
                                                                                  styleClass="form-check-input">
                                                             <f:ajax event="change" render="form:lb-si"/>
                                                         </h:selectBooleanCheckbox>
@@ -228,9 +228,9 @@
                                         </table>
                                     </div>
                                     <h:panelGroup styleClass="table-responsive"
-                                                  rendered="#{boletoController.pasajeroList.size() gt 0}">
+                                                  rendered="#{reservaController.pasajeroList.size() gt 0}">
                                         <hr />
-                                        <h:dataTable value="#{boletoController.pasajeroList}" var="pasajero"
+                                        <h:dataTable value="#{reservaController.pasajeroList}" var="pasajero"
                                                      styleClass="table text-center table-hover" headerClass="bg-white">
                                             <f:facet name="header">
                                                 <h:outputText styleClass="fs-5 text-uppercase" value="Acompañantes" />
@@ -260,7 +260,7 @@
                                 </button>
                                 <!-- Guardar -->
                                 <button class="btn btn-outline-primary"
-                                        jsf:actionListener="#{boletoController.actualizarPagoBoleto}">
+                                        jsf:actionListener="#{reservaController.actualizarPagoBoleto}">
                                     <i class="bi bi-sd-card-fill me-2" />#{lenguaje['g.actualizar']}
                                     <f:ajax event="click" execute="@form" render="form:tabBoleto form:panel-toast"
                                             onevent="validarModal" />

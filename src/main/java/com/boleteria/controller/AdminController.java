@@ -15,9 +15,6 @@ public class AdminController {
 
     private Client client;
     private WebTarget webTarget;
-    private Gson gson;
-    private Type type;
-    private Response response;
     private String model;
 
     //private final String URL = "http://127.0.0.1:9899/ADMIN_SERVICE/admin";
@@ -36,21 +33,4 @@ public class AdminController {
         }
         return null;
     }
-
-    /*
-    public boolean verificarUsuario(Usuario userBD, Usuario u) {
-        em = emf.createEntityManager();
-        Query q = em.createNativeQuery("SELECT AES_DECRYPT(?1, ?2)");
-        q.setParameter(1, userBD.getPasswordUser());
-        q.setParameter(2, new GlobalParameters().getKeyDescoder());
-        try {
-            byte[] passB = (byte[]) q.getSingleResult();
-            return Arrays.equals(passB, u.getPasswordUser());
-        } catch (NullPointerException e) {
-            return false;
-        } finally {
-            em.close();
-        }
-    }
-    * */
 }
