@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 <f:event type="preRenderView" listener="#{loginController.ingresarLogin()}"/>
 <h:head>
     <link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/favicon.ico" />
@@ -20,6 +21,7 @@
 </h:head>
 <h:body class="bg-primary">
     <h:form id="form">
+        <h:inputHidden id="token" value="#{loginController.token}" />
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -27,8 +29,9 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Iniciar Sesión</h3></div>
                                     <div class="card-body">
+                                        <h:messages id="msgLogin" layout="table" styleClass="mx-auto invalid-custom-2 mb-3 w-100" />
                                         <!--============= Usuario =============-->
                                         <div class="form-floating mb-3">
                                             <h:inputText id="txtUsuario" type="text" styleClass="form-control validate"
@@ -58,8 +61,10 @@
                                                           href="#{facesContext.externalContext.requestContextPath}/recuperar/contrasenia/inicio">
                                                 Forgot Password?
                                             </h:outputLink>
-                                            <h:commandButton value="Iniciar Sesión" styleClass="btn btn-primary"
-                                                             action="#{loginController.iniciarSesion}" />
+                                            <h:commandButton class="btn btn-primary" value="Ingresar"
+                                                             actionListener="#{loginController.iniciarSesion}">
+                                                <f:ajax execute="@form" render="form:msgLogin" onevent="onClickValidate" />
+                                            </h:commandButton>
                                         </div>
                                     </div>
                                     <h:panelGroup layout="block" rendered="false" class="card-footer text-center py-3">
@@ -71,11 +76,25 @@
                     </div>
                 </main>
             </div>
+            <!--======================== Spinner ========================-->
+            <div id="loading" class="fixed-bottom text-end pe-5 pb-4" style="display: none; z-index: 100000">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
             <div id="layoutAuthentication_footer" class="fixed-bottom">
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">#{lenguaje.copyright} &#169; #{lenguaje.empresa} 2022</div>
+                            <div class="position-relative wd-poweredby">
+                                <small class="fst-italic fw-bold">Powered By</small><br />
+                                <a href="https://wallpanadev.com/" target="_blank"
+                                   class="link-dark text-decoration-none stretched-link">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/wallpanadev.png"
+                                         alt="wallpanadev" width="150" />
+                                </a>
+                            </div>
                             <h:panelGroup layout="block" rendered="false">
                                 <a href="#">#{lenguaje['politicas-privacidad']}</a>
 
@@ -91,5 +110,6 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
     <script src="#{facesContext.externalContext.requestContextPath}/resources/js/script-icc.js" type="application/javascript"></script>
+    <script src="#{facesContext.externalContext.requestContextPath}/resources/js/v3.js" type="application/javascript"></script>
 </h:body>
 </html>

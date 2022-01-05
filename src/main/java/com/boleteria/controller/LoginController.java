@@ -1,10 +1,12 @@
 package com.boleteria.controller;
 
 import com.boleteria.model.Usuario;
+import com.boleteria.util.VerifyRecaptcha;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -20,6 +22,8 @@ public class LoginController implements Serializable {
     private final SessionUser sessionUser = new SessionUser();
 
     private Usuario usuario;
+
+    private String token;
 
     public LoginController() {
         this.usuario = new Usuario();
@@ -48,17 +52,27 @@ public class LoginController implements Serializable {
         }
     }
 
-    public void iniciarSesion() throws IOException {
+    public void iniciarSesion() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();//kcUv886-9Aqhw69
-        Integer id = adminController.verificarUsuario(usuario.getUser(), usuario.getPassword());
-        if (id != null && id > 0) {
-            usuario.setIdAdminUsuario(id);
-            usuario.setLogin(true);
-            sessionUser.iniciarSesion(externalContext, usuario);
-            externalContext.redirect(externalContext.getRequestContextPath() + "/panel/inicio");
-        } else {
-            usuario = new Usuario();
-            LOGGER.error("El usuario o la contraseña son incorrectas");
+        try {
+            boolean verify = VerifyRecaptcha.verify(token);
+            if (verify) {
+                Integer id = adminController.verificarUsuario(usuario.getUser(), usuario.getPassword());
+                if (id != null && id > 0) {
+                    usuario.setIdAdminUsuario(id);
+                    usuario.setLogin(true);
+                    sessionUser.iniciarSesion(externalContext, usuario);
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/panel/inicio");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Credenciales incorrectas"));
+                    usuario = new Usuario();
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vuelva a intentarlo"));
+                usuario = new Usuario();
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -71,5 +85,13 @@ public class LoginController implements Serializable {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

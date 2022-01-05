@@ -29,6 +29,16 @@ var segundos = 0;
 var tiempoEspera = 15;
 
 /**============== GENERAL ==============*/
+function validarFormulario(data) {
+    loading(data);
+    if (data.status === 'success') {
+        let validateFields = document.querySelectorAll('.validate');
+        validateFields.forEach(vF => {
+            validarCampo(vF);
+        });
+    }
+}
+
 function validarCampo(element) {
     if (element.value == null || element.value.trim().length === 0) {
         element.classList.remove('is-valid');
@@ -88,4 +98,8 @@ function showLoader() {
     const v = setInterval(function () {
         document.getElementById('loading').style.display = 'none';
     }, 4000);
+}
+
+function onSubmit(token) {
+    document.getElementById("demo-form").submit();
 }

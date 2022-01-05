@@ -1,14 +1,11 @@
 package com.boleteria.controller;
 
-import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
-import java.lang.reflect.Type;
 
 public class AdminController {
     private static final Logger LOGGER = LogManager.getLogger(AdminController.class);

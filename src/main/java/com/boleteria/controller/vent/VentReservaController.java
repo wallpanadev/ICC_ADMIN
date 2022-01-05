@@ -87,8 +87,6 @@ public class VentReservaController extends Cronometro implements Serializable {
             } finally {
                 fc.responseComplete();
             }
-        } else {
-            MensajeController.contruirMensaje(TipoMensaje.TABLA_VACIA);
         }
     }
 

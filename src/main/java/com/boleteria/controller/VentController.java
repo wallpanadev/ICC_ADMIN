@@ -1,6 +1,8 @@
 package com.boleteria.controller;
 
-import com.boleteria.model.*;
+import com.boleteria.model.ListaPasajero;
+import com.boleteria.model.VentPasajero;
+import com.boleteria.model.VentReserva;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

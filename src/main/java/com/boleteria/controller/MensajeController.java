@@ -39,12 +39,6 @@ public class MensajeController implements Serializable {
             case 6:
                 asignarMensaje(new MensajeToast("Busqueda Exitosa", "Se ha encontrado la siguiente información"));
                 break;
-            case 7:
-                asignarMensaje(new MensajeToast("Tabla Vacia", "No se ha encontrado información para descargar el reporte", MensajeToast.ICONO_ERROR, MensajeToast.COLOR_ERROR));
-                break;
-            case 8:
-                asignarMensaje(new MensajeToast("En proceso...", "La descarga se realizará en unos segundos"));
-                break;
         }
     }
 
