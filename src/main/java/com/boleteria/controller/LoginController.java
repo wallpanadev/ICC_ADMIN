@@ -1,6 +1,6 @@
 package com.boleteria.controller;
 
-import com.boleteria.model.Usuario;
+import com.boleteria.util.Usuario;
 import com.boleteria.util.VerifyRecaptcha;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

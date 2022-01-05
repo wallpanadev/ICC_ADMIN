@@ -7,6 +7,7 @@ import com.boleteria.controller.VentController;
 import com.boleteria.enums.TipoMensaje;
 import com.boleteria.model.*;
 import com.boleteria.util.Cronometro;
+import com.boleteria.util.ListaPasajero;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

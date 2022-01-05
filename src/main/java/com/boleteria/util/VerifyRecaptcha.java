@@ -1,6 +1,5 @@
 package com.boleteria.util;
 
-import com.boleteria.model.ResponseCaptcha;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,8 +46,8 @@ public class VerifyRecaptcha {
                 in.close();
                 //parse JSON response and return 'success' value
                 Gson gson = new Gson();
-                ResponseCaptcha responseCaptcha = gson.fromJson(response.toString().replace(" ", ""), ResponseCaptcha.class);
-                return responseCaptcha.isSuccess() && responseCaptcha.getScore() >= 0.7;
+                ResponseRecaptcha responseRecaptcha = gson.fromJson(response.toString().replace(" ", ""), ResponseRecaptcha.class);
+                return responseRecaptcha.isSuccess() && responseRecaptcha.getScore() >= 0.7;
             } else {
                 return false;
             }

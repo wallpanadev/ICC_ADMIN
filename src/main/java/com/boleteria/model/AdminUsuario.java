@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -16,5 +15,5 @@ public class AdminUsuario implements Serializable {
     private byte[] passwordUsuario;
     private Timestamp fecharegistroUsuario;
     private Boolean estadoUsuario;
-    private Set<AdminRolusuario> adminRolUsuarioList;
+    //private Set<AdminRolusuario> adminRolUsuarioList;
 }

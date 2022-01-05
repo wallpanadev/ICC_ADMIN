@@ -1,4 +1,4 @@
-package com.boleteria.model;
+package com.boleteria.util;
 
 import lombok.Getter;
 import lombok.Setter;
